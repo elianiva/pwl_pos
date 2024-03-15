@@ -2,29 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Models\UserModel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::create([
-            'level_id' => 2,
-            'username' => 'manager11',
-            'nama' => 'Manager11',
-            'password' => Hash::make('12345'),
-        ]);
-        $user->username = 'manager12';
-        $user->save();
+        $user = UserModel::all();
+        return view('user', ['data' => $user]);
+    }
 
-        $user->wasChanged();
-        $user->wasChanged('username');
-        $user->wasChanged(['username', 'level_id']);
-        $user->wasChanged('nama');
-        dd($user->wasChanged(['nama', 'username']));
+    public function tambah()
+    {
+        return view('user_tambah');
+    }
+
+    public function ubah($id)
+    {
+        $user = UserModel::find($id);
+        return view('user_ubah', ['data' => $user]);
+    }
+
+    public function tambah_simpan(Request $request)
+    {
+        UserModel::create([
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => Hash::make($request->password),
+            'level_id' => $request->level_id,
+        ]);
+        return redirect('/user');
     }
 
     public function create()

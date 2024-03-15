@@ -14,13 +14,20 @@
                 <th>Username</th>
                 <th>Name</th>
                 <th>ID Level User</th>
+                <th>Aksi</th>
             </tr>
-            <tr>
-                <td>{{ $d->user_id }}</td>
-                <td>{{ $d->username }}</td>
-                <td>{{ $d->nama }}</td>
-                <td>{{ $d->level_id }}</td>
-            </tr>
+            @foreach($data as $d)
+                <tr>
+                    <td>{{ $d->user_id }}</td>
+                    <td>{{ $d->username }}</td>
+                    <td>{{ $d->nama }}</td>
+                    <td>{{ $d->level_id }}</td>
+                    <td>
+                        <a href="{{ route('/user/ubah/', $d->user_id) }}">Edit</a>
+                        <a href="{{ route('/user/hapus/', $d->user_id) }}">Delete</a>
+                    </td>
+                </tr>
+            @endforeach
         </table>
     </body>
 </html>
