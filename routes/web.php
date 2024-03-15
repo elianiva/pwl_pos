@@ -28,3 +28,4 @@ Route::get('/user/tambah', [UserController::class, 'tambah'])->name('/user/tamba
 Route::post('/user/ubah/{id}', [UserController::class, 'ubah'])->name('/user/ubah');
 Route::post('/user/hapus/{id}', [UserController::class, 'hapus'])->name('/user/hapus');
 Route::post('/user/tambah_simpan', [UserController::class, 'tambah_simpan'])->name('/user/tambah_simpan');
+Route::post('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan'])->name('/user/ubah_simpan');

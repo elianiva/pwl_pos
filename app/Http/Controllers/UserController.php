@@ -36,6 +36,16 @@ class UserController extends Controller
         return redirect('/user');
     }
 
+    public function ubah_simpan(Request $request, $id)
+    {
+        $user = UserModel::find($id);
+        $user->username = $request->username;
+        $user->nama = $request->nama;
+        $user->level_id = $request->level_id;
+        $user->save();
+        return redirect('/user');
+    }
+
     public function create()
     {
         $data = [
