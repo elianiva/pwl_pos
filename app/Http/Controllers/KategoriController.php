@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\KategoriDataTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class KategoriController extends Controller
 {
-    public function index()
+    public function index(KategoriDataTable $dataTable)
     {
-        $data = DB::table('m_kategori')->get();
-        return view('kategori', ['data' => $data]);
+        return $dataTable->render('kategori.index');
     }
 
     public function insert()
