@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\KategoriDataTable;
+use App\Models\KategoriModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,26 +14,39 @@ class KategoriController extends Controller
         return $dataTable->render('kategori.index');
     }
 
-    public function insert()
+    public function create()
     {
-        $data = [
-            'kategori_kode' => 'SNK',
-            'kategori_nama' => 'Snack/Makanan Ringan',
-            'created_at' => now()
-        ];
-        DB::table('m_kategori')->insert($data);
-        return 'Data successfully inserted!';
+        return view('kategori.create');
     }
 
-    public function update()
+    public function store(Request $request)
     {
-        $row = DB::table('m_kategori')->where('kategori_kode', 'SNK')->update(['kategori_nama' => 'Camilan']);
-        return 'Data successfully updated! ' . $row;
+        KategoriModel::create([
+            'kategori_kode' => $request->kategori_kode,
+            'kategori_nama' => $request->kategori_nama,
+        ]);
+        return redirect('/kategori');
     }
 
-    public function delete()
+    public function update(int $id)
     {
-        $row = DB::table('m_kategori')->where('kategori_kode', 'SNK')->delete();
-        return 'Data successfully deleted! ' . $row;
+        $data = KategoriModel::find($id);
+        return view('kategori.update', ['kategori' => $data]);
+    }
+
+    public function edit(Request $request, int $id)
+    {
+        $data = KategoriModel::find($id);
+        $data->kategori_kode = $request->kodeKategori;
+        $data->kategori_nama = $request->namaKategori;
+        $data->save();
+        return redirect('/kategori');
+    }
+
+    public function delete(int $id)
+    {
+        $kategori = KategoriModel::find($id);
+        $kategori->delete();
+        return redirect('/kategori');
     }
 }
