@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLevelRequest;
+use App\Models\LevelModel;
 use Illuminate\Support\Facades\DB;
 
 class LevelController extends Controller
@@ -12,10 +14,14 @@ class LevelController extends Controller
         return view('level', ['data' => $data]);
     }
 
-    public function insert()
+    public function insert(StoreLevelRequest $request)
     {
-         DB::insert('insert into m_level(level_kode, level_nama, created_at) values(?, ?, ?)', ['CUS', 'Pelanggan', now()]);
-         return 'Insert data baru berhasil';
+        $validated = $request->validated();
+        LevelModel::create([
+            'level_kode' => $validated['level_kode'],
+            'level_nama' => $validated['level_nama'],
+        ]);
+        return 'Insert data baru berhasil';
     }
 
     public function update()
