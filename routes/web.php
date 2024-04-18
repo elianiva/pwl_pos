@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\POSController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,3 +40,5 @@ Route::put('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('ka
 Route::get('/kategori/delete', [KategoriController::class, 'delete'])->name('kategori.delete');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('m_user', POSController::class);
