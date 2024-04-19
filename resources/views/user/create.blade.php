@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    < class="col-1 control-label col-form-label" >Nama</label>
+                    <label class="col-1 control-label col-form-label">Nama</label>
                     <div class="col-11">
                         <input
                             type="text" class="form-control" id="nama" name="nama"

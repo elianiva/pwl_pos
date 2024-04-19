@@ -30,7 +30,7 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        $users = UserModel::select('user_id', 'username', 'email', 'level_id')->with('level')->get();
+        $users = UserModel::select('user_id', 'username', 'nama', 'email', 'level_id')->with('level')->get();
 
         // filter by level_id
         if ($request->level_id) {
@@ -61,7 +61,7 @@ class UserController extends Controller
         $activeMenu = 'user';
         $level = LevelModel::all();
 
-        return view('user.create', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'level' => $level]);
+        return view('user.create', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'levels' => $level]);
     }
 
     public function store(Request $request)
@@ -110,7 +110,7 @@ class UserController extends Controller
             'title' => 'Edit user',
         ];
         $activeMenu = 'user';
-        return view('user.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'user' => $user, 'level' => $level]);
+        return view('user.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'user' => $user, 'levels' => $level]);
     }
 
     public function update(Request $request, string $id)
@@ -135,9 +135,8 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $check = UserModel::find($id);
-        if ($check) {
-            $check->delete();
-            return redirect('/user')->with('success', 'User deleted successfully.');
+        if (!$check) {
+            return redirect('/user')->with('error', 'User not found.');
         }
 
         try {

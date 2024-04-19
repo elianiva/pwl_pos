@@ -4,7 +4,7 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('user/create') }}">Tambah</a>
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('level/create') }}">Tambah</a>
             </div>
         </div>
         <div class="card-body">
@@ -14,32 +14,15 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <div class="col-1 control-label col-form-level">Filter:</div>
-                            <div class="col-3">
-                                <select name="level_id" id="level_id" class="form-control" required>
-                                    <option value="">- Semua -</option>
-                                    @foreach($levels as $item)
-                                        <option value="{{ $item->level_id }}">{{ $item->level_nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             <table
                 class="table table-bordered table-striped table-hover table-sm"
-                id="table_user"
+                id="table_level"
             >
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Username</th>
-                        <th>Email</th>
+                        <th>Kode</th>
                         <th>Nama</th>
-                        <th>Level</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -48,21 +31,15 @@
     </div>
 @endsection
 
-@push('css')
-@endpush
-
 @push('js')
     <script>
         $(document).ready(function () {
-            var dataUser = $('#table_user').DataTable({
+            const dataUser = $('#table_level').DataTable({
                 serverSide: true,
                 ajax: {
-                    "url": "{{ url('user/list') }}",
+                    "url": "{{ url('level/list') }}",
                     "dataType": "json",
                     "type": "GET",
-                    "data": function(d) {
-                        d.level_id = $('#level_id').val();
-                    }
                 },
                 columns: [
                     {
@@ -71,30 +48,20 @@
                         orderable: false,
                         searchable: false
                     }, {
-                        data: "username",
+                        data: "level_kode",
                         ClassName: "",
                         orderable: true,
-                        searchable: true
-                    },{
-                        data: "email",
-                        ClassName: "",
-                        orderable: true,
-                        searchable: true
+                        searchable: true,
                     }, {
-                        data: "nama",
+                        data: "level_nama",
                         ClassName: "",
                         orderable: true,
-                        searchable: true
-                    }, {
-                        data: "level.level_nama",
-                        ClassName: "",
-                        orderable: false,
-                        searchable: false
+                        searchable: true,
                     }, {
                         data: "action",
                         ClassName: "",
                         orderable: false,
-                        searchable: false
+                        searchable: false,
                     }
                 ]
             });
