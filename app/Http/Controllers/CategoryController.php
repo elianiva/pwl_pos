@@ -33,7 +33,7 @@ class CategoryController extends Controller
             $btn = '<a href="/category/' . $category->category_id . '" class="btn btn-primary btn-sm">Detail</a>';
             $btn = $btn . ' <a href="/category/' . $category->category_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
             $btn .= '<form class="d-inline-block" method="POST" action="' .
-                url('/category/' . $category->category_id) . '>' . csrf_field() . method_field('DELETE') .
+                url('/category/' . $category->category_id) . '">' . csrf_field() . method_field('DELETE') .
                 '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure to delete this data?\');" >Delete</button></form>';
             return $btn;
         })

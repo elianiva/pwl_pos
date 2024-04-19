@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\GoodController;
+use App\Http\Controllers\GoodsController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -54,12 +54,12 @@ Route::group(['prefix' => 'category'], function () {
 });
 
 Route::group(['prefix' => 'item'], function () {
-    Route::get('/', [GoodController::class, 'index']);
-    Route::get('/list', [GoodController::class, 'list']);
-    Route::get('/create', [GoodController::class, 'create']);
-    Route::post('/', [GoodController::class, 'store']);
-    Route::get('/{id}', [GoodController::class, 'show']);
-    Route::get('/{id}/edit', [GoodController::class, 'edit']);
-    Route::put('/{id}', [GoodController::class, 'update']);
-    Route::delete('/{id}', [GoodController::class, 'destroy']);
+    Route::get('/', [GoodsController::class, 'index']);
+    Route::get('/list', [GoodsController::class, 'list']);
+    Route::get('/create', [GoodsController::class, 'create']);
+    Route::post('/', [GoodsController::class, 'store']);
+    Route::get('/{id}', [GoodsController::class, 'show']);
+    Route::get('/{id}/edit', [GoodsController::class, 'edit']);
+    Route::put('/{id}', [GoodsController::class, 'update']);
+    Route::delete('/{id}', [GoodsController::class, 'destroy']);
 });

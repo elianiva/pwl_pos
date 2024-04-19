@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->integer('jumlah');
             $table->timestamps();
 
-            $table->foreignId('penjualan_id')->references('penjualan_id')->on('t_penjualan');
-            $table->foreignId('barang_id')->references('barang_id')->on('m_barang');
+            $table->foreignId('penjualan_id')->references('penjualan_id')->on('t_penjualan')->onDelete('cascade');
+            $table->foreignId('barang_id')->references('barang_id')->on('m_barang')->onDelete('cascade');
         });
     }
 

@@ -17,10 +17,11 @@ class GoodsModel extends Model
         'barang_nama',
         'harga_beli',
         'harga_jual',
+        'kategori_id',
     ];
 
     public function kategori()
     {
-        return $this->hasOne(CategoryModel::class, 'kategori_id', 'kategori_id');
+        return $this->belongsTo(CategoryModel::class, 'kategori_id', 'kategori_id');
     }
 }

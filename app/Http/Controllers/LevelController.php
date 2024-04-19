@@ -33,7 +33,7 @@ class LevelController extends Controller
             $btn = '<a href="/level/' . $level->level_id . '" class="btn btn-primary btn-sm">Detail</a>';
             $btn = $btn . ' <a href="/level/' . $level->level_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
             $btn .= '<form class="d-inline-block" method="POST" action="' .
-                url('/level/' . $level->level_id) . '>' . csrf_field() . method_field('DELETE') .
+                url('/level/' . $level->level_id) . '">' . csrf_field() . method_field('DELETE') .
                 '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure to delete this data?\');" >Delete</button></form>';
             return $btn;
         })

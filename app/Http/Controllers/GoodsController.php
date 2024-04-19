@@ -7,7 +7,7 @@ use App\Models\CategoryModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class GoodController extends Controller
+class GoodsController extends Controller
 {
     public function index()
     {
@@ -41,7 +41,7 @@ class GoodController extends Controller
             $btn = '<a href="/item/' . $barang->barang_id . '" class="btn btn-primary btn-sm">Detail</a>';
             $btn = $btn . ' <a href="/item/' . $barang->barang_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
             $btn .= '<form class="d-inline-block" method="POST" action="' .
-                url('/item/' . $barang->barang_id) . '>' . csrf_field() . method_field('DELETE') .
+                url('/item/' . $barang->barang_id) . '">' . csrf_field() . method_field('DELETE') .
                 '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure to delete this data?\');">Delete</button></form>';
             return $btn;
         })
@@ -68,7 +68,7 @@ class GoodController extends Controller
     {
         $request->validate([
             'barang_kode' => 'required|string|min:3|unique:m_barang,barang_kode',
-            'barang_name' => 'required|string|min:3|unique:m_barang,barang_name',
+            'barang_nama' => 'required|string|min:3|unique:m_barang,barang_nama',
             'harga_beli' => 'required|integer',
             'harga_jual' => 'required|integer',
             'kategori_id' => 'required|integer',
@@ -76,7 +76,7 @@ class GoodController extends Controller
 
         GoodsModel::create([
             'barang_kode' => $request->barang_kode,
-            'barang_name' => $request->barang_name,
+            'barang_nama' => $request->barang_nama,
             'harga_beli' => $request->harga_beli,
             'harga_jual' => $request->harga_jual,
             'kategori_id' => $request->kategori_id,
@@ -88,6 +88,7 @@ class GoodController extends Controller
     public function show(string $id)
     {
         $barang = GoodsModel::with('kategori')->find($id);
+        $categories = CategoryModel::all();
         $breadcrumb = (object)[
             'title' => 'Detail Barang',
             'list' => ['Home', 'Barang', 'Detail']
@@ -96,14 +97,13 @@ class GoodController extends Controller
             'title' => 'Detail barang',
         ];
         $activeMenu = 'item';
-        return view('item.show', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'barang' => $barang]);
+        return view('item.show', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'page' => $page, 'barang' => $barang, 'categories' => $categories]);
     }
 
     public function edit(string $id)
     {
         $barang = GoodsModel::find($id);
         $categories = CategoryModel::all();
-
         $breadcrumb = (object)[
             'title' => 'Edit Barang',
             'list' => ['Home', 'Barang', 'Edit']
@@ -119,7 +119,7 @@ class GoodController extends Controller
     {
         $request->validate([
             'barang_kode' => 'required|string|min:3|unique:m_barang,barang_kode',
-            'barang_name' => 'required|string|min:3|unique:m_barang,barang_name',
+            'barang_nama' => 'required|string|min:3|unique:m_barang,barang_nama',
             'harga_beli' => 'required|integer',
             'harga_jual' => 'required|integer',
             'kategori_id' => 'required|integer',
@@ -127,7 +127,7 @@ class GoodController extends Controller
 
         GoodsModel::find($id)->update([
             'barang_kode' => $request->barang_kode,
-            'barang_name' => $request->barang_name,
+            'barang_nama' => $request->barang_nama,
             'harga_beli' => $request->harga_beli,
             'harga_jual' => $request->harga_jual,
             'kategori_id' => $request->kategori_id,
@@ -150,6 +150,4 @@ class GoodController extends Controller
             return redirect('/item')->with('error', 'Barang not found.');
         }
     }
-
-
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('stok_jumlah');
             $table->timestamps();
 
-            $table->foreignId('barang_id')->references('barang_id')->on('m_barang');
+            $table->foreignId('barang_id')->references('barang_id')->on('m_barang')->onDelete('cascade');
             $table->foreignId('user_id')->references('user_id')->on('m_user');
         });
     }
