@@ -1,9 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\GoodController;
 use App\Http\Controllers\LevelController;
-use App\Http\Controllers\POSController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -52,4 +51,15 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('/{id}/edit', [CategoryController::class, 'edit']);
     Route::put('/{id}', [CategoryController::class, 'update']);
     Route::delete('/{id}', [CategoryController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'item'], function () {
+    Route::get('/', [GoodController::class, 'index']);
+    Route::get('/list', [GoodController::class, 'list']);
+    Route::get('/create', [GoodController::class, 'create']);
+    Route::post('/', [GoodController::class, 'store']);
+    Route::get('/{id}', [GoodController::class, 'show']);
+    Route::get('/{id}/edit', [GoodController::class, 'edit']);
+    Route::put('/{id}', [GoodController::class, 'update']);
+    Route::delete('/{id}', [GoodController::class, 'destroy']);
 });

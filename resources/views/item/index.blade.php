@@ -4,7 +4,7 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('user/create') }}">Tambah</a>
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('item/create') }}">Tambah</a>
             </div>
         </div>
         <div class="card-body">
@@ -19,10 +19,10 @@
                         <div class="form-group row">
                             <div class="col-1 control-label col-form-level">Filter:</div>
                             <div class="col-3">
-                                <select name="level_id" id="level_id" class="form-control" required>
+                                <select name="kategori_id" id="kategori_id" class="form-control" required>
                                     <option value="">- Semua -</option>
-                                    @foreach($levels as $item)
-                                        <option value="{{ $item->level_id }}">{{ $item->level_nama }}</option>
+                                    @foreach($categories as $item)
+                                        <option value="{{ $item->kategori_id }}">{{ $item->kategori_nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -31,15 +31,16 @@
                 </div>
             <table
                 class="table table-bordered table-striped table-hover table-sm"
-                id="table_user"
+                id="table_item"
             >
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Username</th>
-                        <th>Email</th>
+                        <th>Kode</th>
                         <th>Nama</th>
-                        <th>Level</th>
+                        <th>Kategori</th>
+                        <th>Harga Jual</th>
+                        <th>Harga Beli</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -48,20 +49,17 @@
     </div>
 @endsection
 
-@push('css')
-@endpush
-
 @push('js')
     <script>
         $(document).ready(function () {
-            const dataUser = $('#table_user').DataTable({
+            const dataItem = $('#table_item').DataTable({
                 serverSide: true,
                 ajax: {
-                    "url": "{{ url('user/list') }}",
+                    "url": "{{ url('item/list') }}",
                     "dataType": "json",
                     "type": "GET",
                     "data": function(d) {
-                        d.level_id = $('#level_id').val();
+                        d.kategori_id = $('#kategori_id').val();
                     }
                 },
                 columns: [
@@ -71,22 +69,27 @@
                         orderable: false,
                         searchable: false
                     }, {
-                        data: "username",
-                        ClassName: "",
-                        orderable: true,
-                        searchable: true
-                    },{
-                        data: "email",
+                        data: "barang_kode",
                         ClassName: "",
                         orderable: true,
                         searchable: true
                     }, {
-                        data: "nama",
+                        data: "barang_nama",
                         ClassName: "",
                         orderable: true,
                         searchable: true
                     }, {
-                        data: "level.level_nama",
+                        data: "kategori.kategori_nama",
+                        ClassName: "",
+                        orderable: true,
+                        searchable: true
+                    }, {
+                        data: "harga_jual",
+                        ClassName: "",
+                        orderable: true,
+                        searchable: true
+                    }, {
+                        data: "harga_beli",
                         ClassName: "",
                         orderable: false,
                         searchable: false
@@ -99,10 +102,9 @@
                 ]
             });
 
-            $('#level_id').change(function () {
-                dataUser.ajax.reload();
+            $('#kategori_id').change(function () {
+                dataItem.ajax.reload();
             });
         });
-
     </script>
 @endpush
