@@ -106,10 +106,8 @@ class LevelController extends Controller
         ]);
 
         LevelModel::find($id)->update([
-            'levelname' => $request->levelname,
-            'email' => $request->email,
-            'password' => $request->password ? bcrypt($request->password) : LevelModel::find($id)->password,
-            'level_id' => $request->level_id,
+            'level_kode' => $request->level_kode,
+            'level_nama' => $request->level_nama,
         ]);
 
         return redirect('/level')->with('success', 'Level updated successfully.');

@@ -42,7 +42,7 @@ class UserController extends Controller
             $btn = $btn . ' <a href="/user/' . $user->user_id . '/edit" class="btn btn-warning btn-sm">Edit</a>';
             $btn .= '<form class="d-inline-block" method="POST" action="' .
                 url('/user/' . $user->user_id) . '>' . csrf_field() . method_field('DELETE') .
-                '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure to delete this data?\');" >Delete</button></form>';
+                '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure to delete this data?\');">Delete</button></form>';
             return $btn;
         })
             ->rawColumns(['action'])

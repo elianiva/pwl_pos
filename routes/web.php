@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\POSController;
@@ -42,3 +43,13 @@ Route::group(['prefix' => 'level'], function () {
     Route::delete('/{id}', [LevelController::class, 'destroy']);
 });
 
+Route::group(['prefix' => 'category'], function () {
+    Route::get('/', [CategoryController::class, 'index']);
+    Route::get('/list', [CategoryController::class, 'list']);
+    Route::get('/create', [CategoryController::class, 'create']);
+    Route::post('/', [CategoryController::class, 'store']);
+    Route::get('/{id}', [CategoryController::class, 'show']);
+    Route::get('/{id}/edit', [CategoryController::class, 'edit']);
+    Route::put('/{id}', [CategoryController::class, 'update']);
+    Route::delete('/{id}', [CategoryController::class, 'destroy']);
+});
