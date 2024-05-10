@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GoodsController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +22,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [WelcomeController::class, 'index']);
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'doLogin'])->name('login.post');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'doRegister'])->name('register.post');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'auth.guard:1'], function () {
+        Route::resource('/admin', AdminController::class);
+        Route::resource('/manager', ManagerController::class);
+    });
+});
 
 Route::group(['prefix' => 'user'], function () {
     Route::get('/', [UserController::class, 'index']);
